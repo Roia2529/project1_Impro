@@ -1,0 +1,30 @@
+%Project01-denoise
+close all;
+s = 'proj1_3.png';
+Gray_Image = rgb2gray(imread(s));
+datas = histogramOwn(Gray_Image, 255, 1, 255);
+
+F1 = RangeFilter(Gray_Image,0,70);
+F2 = RangeFilter(Gray_Image,,198);
+F3 = RangeFilter(Gray_Image,211,256);
+subplot(1,3,1);
+imshow(F1);
+subplot(1,3,2);
+imshow(F2);
+subplot(1,3,3);
+imshow(F3);
+Color_Image = cat(3, Gray_Image, Gray_Image, Gray_Image);
+
+inputs = size(F);
+labelimage = uint8(zeros(inputs(1),inputs(2)));
+
+[labelimage,endvalue] = CCA(F,1,labelimage);
+Color_Image(:,:,2) = Color_Image(:,:,2)+ (50*(labelimage));
+figure(2);
+subplot(1,2,1);
+imshow(F*255,'InitialMagnification',100);
+subplot(1,2,2);
+imshow(Color_Image);
+truesize;
+%hold on;
+
